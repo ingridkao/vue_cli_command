@@ -1,5 +1,213 @@
 <template>
-  <div class="product">
-    <h1>This is an product page</h1>
+  <div class="wrapper">
+      <main>
+          <header>
+              search: <input type="text" v-model="search"><br>
+              $<input type="number" v-model="min">-<input type="number" v-model="max">
+          </header>
+          <template v-if="load">loading...</template>
+          <template v-else >
+              <div class="productContainer">
+                  <div v-for="(item, index) in product" :key="item.id">
+                      <p>{{item.title}}</p>
+                      {{parseRating(item.rating)}}
+                      <img :src="item.image" v-bind:alt="item.title">
+                      <p>{{parsePrice(item.price)}}元</p>
+                      <div>
+                          <button v-on:click="reduceCount(index, item)">-</button>
+                          <input type="number" min="0" v-model="count[index]">
+                          <button @click="addCount(index, item)">+</button>
+                      </div>
+                  </div>
+              </div>
+          </template>
+      </main>
+      <aside>
+          <ul>
+              <li v-for="(item, index) in order" :key="item.id">
+                  {{index}}-{{item.title}}: {{item.count}}
+              </li>
+          </ul>
+          <p>總價：{{total}}元</p> 
+      </aside>
   </div>
 </template>
+
+<script>
+export default {
+
+
+      data(){
+          return {
+              load: false,
+    source: [],
+              sourceCount: 0,
+              order: [],
+              // product: [],
+              count: [],
+    search: '',
+    min: 0,
+    max: 0,
+          }
+      },
+			computed:{
+				product(){
+					let cache = this.source
+					if(this.min > 0){//篩選最小價錢
+						cache = cache.filter((item, index)=>{
+							return item.price > this.min
+						})
+					}
+					if(this.max > 0){//篩選最大價錢
+						cache = cache.filter(item=>{
+							return item.price < this.max
+						})
+					}
+					if(this.search !== ''){//篩選相符標題
+						cache = cache.filter(item=>{
+							return item.title.includes(this.search)
+						})
+					}
+					return cache
+				},
+				total(){
+					let total = 0
+					for ( const countIndex in this.product) {
+						total += this.count[countIndex] * this.product[countIndex]['price']
+					}
+					return parseInt(total)
+				}
+			},
+			watch:{
+				//監聽data或computed
+				total: {
+					handler: function(newVal, oldVal) {
+						if(newVal> 1000){
+							alert('你要餓死了')
+						}
+					}
+				}
+			},
+      methods:{
+          parseRating(rating){
+              if(!rating) return null
+              let starStr = ''
+              const star = parseInt(rating.rate)
+              for (let index = 0; index < star; index++) {
+                  starStr += '🌟'
+              }
+              return `${starStr}${rating.count}`
+          },
+  parsePrice(price){
+    return `TWD ${price*33}`
+  },
+          getResource(){
+              this.load = true
+              fetch('https://fakestoreapi.com/products/')
+              .then(res=>res.json())
+              .then(json=>{
+                  this.source = json
+                  //初始化商品數量
+                  // for ( item in this.product) {
+                  //     this.count.push(0)
+                  // }
+                  this.load = false
+                  this.sourceCount = this.source.length
+                  // console.log('method:'+this.sourceCount);
+              })
+          },
+          addCount(index, item){
+              this.count[index] += 1
+              // const exits = this.order.some(orderItem => {
+              //     // 訂單裡面有沒有(orderItem)存在新增的商品(item)
+              //     return orderItem.id === item.id
+              // })
+              // 如果訂單清單裡有這個商品，就將同id的商品增加數量count
+              // 取訂單商品的順序
+              const prodIndex = this.order.findIndex(orderItem => {
+                  console.log(orderItem)
+                  return orderItem.id === item.id
+              })
+              if(prodIndex >= 0 ){
+                  // 將訂單商品數量+1
+                  // this.order[prodIndex]['count'] = this.order[prodIndex]['count'] + 1 
+                  this.order[prodIndex]['count'] += 1 
+              }else{
+                  //prodIndex結果會是-1
+                  //如果訂單清單裡沒有這個商品，就新增一個訂單商品
+                  this.order.push({
+                      id: item.id,
+                      title: item.title,
+                      price: item.price,
+                      count: 1 //init
+                  })
+              }
+              this.setStorage()
+          },
+          reduceCount(index, item){
+              if(this.count[index] <= 0) return
+              this.count[index] -= 1
+              const prodIndex = this.order.findIndex(orderItem => {
+                  return orderItem.id === item.id
+              })
+              if(prodIndex < 0) return
+              if(this.order[prodIndex]['count'] > 1){
+                  // this.order[prodIndex]['count'] = this.order[prodIndex]['count'] - 1 
+                  this.order[prodIndex]['count'] -= 1 
+              }else{
+                  this.order.splice(prodIndex, 1)
+              }
+              this.setStorage()
+          },
+          getStorage(){
+              let data = localStorage.getItem('turleShop')
+              data = JSON.parse(data)
+              this.order = data? data: []
+          },
+          setStorage(){
+              //陣列或物件轉字串
+              const data = JSON.stringify(this.order)
+              localStorage.setItem('turleShop', data)
+          }
+      },
+			created() {
+                // console.log('created:'+this.source.length);
+                // this.getResource()
+      },
+      mounted(){
+          this.getResource()
+          this.getStorage()
+          this.sourceCount = this.source.length
+          // console.log('mounted:'+this.sourceCount);
+      },
+      beforeUnmount(){
+          // alert('beforeUnmount')
+          // console.log('beforeUnmount');
+      }
+}
+
+
+    </script>
+
+<style lang="scss">
+    .wrapper{
+        width: 100%;
+        height: 80vh;
+    }
+    main{
+        display: inline-block;
+        width: calc(100vw - 21rem);
+        overflow: scroll;
+    }
+    aside{
+        display: inline-block;
+        width: 20rem;
+        vertical-align: top;
+    }
+    .productContainer{
+        display: inline-flex;
+    }
+    img{
+        height: 5rem;
+    }
+</style>

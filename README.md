@@ -1,19 +1,15 @@
 # vue_cli_command
+使用VueCLI(vue3)來建立商品網頁
 
-## Project setup
-```
-npm install
-```
+[Demo](https://ingridkao.github.io/vue_cli_command/)
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
 
-### Compiles and minifies for production
-```
-npm run build
-```
+### 把框架制定出來並把index如原稿一樣顯示
+> 借才珺個專-[茶苑CHAYUAN](https://github.com/tangtang1b1b/chayuan)來製作
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+步驟1-改title:
+在`vue.config.js`中更改，詳情請參考該檔案
+
+步驟2-改icon:
+把`public/favicon.ico`圖檔覆蓋並不改檔名
+    

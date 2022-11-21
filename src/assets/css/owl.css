@@ -1,0 +1,39 @@
+.swiper-container {
+    width: 100%;
+  }
+  
+  .swiper-slide {
+    width: auto !important;
+  }
+  
+  .card {
+    width: 240px;
+    border-radius: 8px;
+    background: white;
+    overflow: hidden;
+  }
+  
+  .card__img {
+    display: block;
+    width: 100%;
+    height: 240px;
+    -o-object-fit: cover;
+       object-fit: cover;
+  }
+  
+  .card__body {
+    padding: 15px 20px;
+    font-weight: 600;
+    text-align: center;
+  }
+  
+  .card__body > h3 {
+    font-size: 1.25rem;
+    line-height: 1.5;
+  }
+  
+  .card__body > span {
+    display: block;
+    font-size: 1rem;
+    color: #f44336;
+  }

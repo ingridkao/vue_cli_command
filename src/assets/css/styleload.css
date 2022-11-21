@@ -1,0 +1,238 @@
+.load_area {
+  height: 600px;
+  width: 100%;
+  background-color: #f7f7f7;
+  padding: 160px 0px;
+}
+.load_area .container_load {
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+}
+.load_area .container_load .content_load {
+  margin: auto;
+  border: solid 1px #dcdcdc;
+  width: 600px;
+}
+.load_area .container_load .content_load .loadadd {
+  background-color: #fbfbfb;
+  display: flex;
+}
+.load_area .container_load .content_load .loadadd p {
+  cursor: pointer;
+  font-weight: bold;
+  padding: 20px 0px;
+  text-align: center;
+  width: 50%;
+}
+.load_area .container_load .content_load .loadadd p + p {
+  border-left: solid 1px #dcdcdc;
+}
+.load_area .container_load .content_load .loadadd .jufr {
+  border-bottom: solid 1px #dcdcdc;
+}
+.load_area .container_load .content_load .loadadd .dunse {
+  border-bottom: solid 1px #dcdcdc;
+}
+.load_area .container_load .content_load .loadadd .dunjuadd {
+  border-bottom: none;
+  background-color: #fff;
+}
+.load_area .container_load .content_load .choosewhat {
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  padding: 20px 10px;
+  border-bottom: solid 1px #dcdcdc;
+}
+.load_area .container_load .content_load .choosewhat p {
+  cursor: pointer;
+  background-color: #01b201;
+  color: #f7f7f7;
+  font-weight: bold;
+  padding: 10px 0px;
+  text-align: center;
+  width: 50%;
+  border-radius: 5px;
+}
+.load_area .container_load .content_load .choosewhat p:hover {
+  filter: brightness(1.1);
+}
+.load_area .container_load .content_load .choosewhat p + p {
+  margin-left: 10px;
+  background-color: #3b5998;
+}
+.load_area .container_load .content_load .load_write {
+  background-color: #fff;
+  padding: 10px;
+}
+.load_area .container_load .content_load .load_write .write_group.other {
+  display: none;
+}
+.load_area .container_load .content_load .load_write .write_group .write_list {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+}
+.load_area .container_load .content_load .load_write .write_group .write_list input {
+  border: solid 1px #dcdcdc;
+  padding: 10px;
+}
+.load_area .container_load .content_load .load_write .write_group .write_list.fill input {
+  width: 100%;
+}
+.load_area .container_load .content_load .load_write .write_group .write_list:nth-child(6) {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;
+  justify-content: flex-start;
+}
+.load_area .container_load .content_load .addbtn {
+  background-color: #fff;
+  text-decoration: none;
+  padding: 0px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.load_area .container_load .content_load .addbtn .letgo {
+  border: solid 1px;
+  background-color: #00A26A;
+  text-align: center;
+  border-radius: 5px;
+  padding: 15px 50px;
+  color: #f7f7f7;
+  font-weight: bold;
+}
+.load_area .container_load .content_load .addbtn .letgo:hover {
+  filter: brightness(1.1);
+}
+.load_area .container_load .content_load .addbtn .forget {
+  text-align: center;
+  color: rgba(51, 51, 51, 0.7);
+  font-weight: bold;
+  font-size: 14px;
+  padding: 20px 0px 0px;
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .load_area {
+    height: 600px;
+    width: 100%;
+    background-color: #f7f7f7;
+    padding: 160px 0px;
+  }
+  .load_area .container_load {
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+  }
+  .load_area .container_load .content_load {
+    margin: auto;
+    border: solid 1px #dcdcdc;
+    width: 100%;
+  }
+  .load_area .container_load .content_load .loadadd {
+    background-color: #fbfbfb;
+    display: flex;
+  }
+  .load_area .container_load .content_load .loadadd p {
+    cursor: pointer;
+    font-weight: bold;
+    padding: 20px 0px;
+    text-align: center;
+    width: 50%;
+  }
+  .load_area .container_load .content_load .loadadd p + p {
+    border-left: solid 1px #dcdcdc;
+  }
+  .load_area .container_load .content_load .loadadd .jufr {
+    border-bottom: solid 1px #dcdcdc;
+  }
+  .load_area .container_load .content_load .loadadd .dunse {
+    border-bottom: solid 1px #dcdcdc;
+  }
+  .load_area .container_load .content_load .loadadd .dunjuadd {
+    border-bottom: none;
+    background-color: #fff;
+  }
+  .load_area .container_load .content_load .choosewhat {
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 10px;
+    border-bottom: solid 1px #dcdcdc;
+  }
+  .load_area .container_load .content_load .choosewhat p {
+    cursor: pointer;
+    background-color: #01b201;
+    color: #f7f7f7;
+    font-weight: bold;
+    padding: 10px 0px;
+    text-align: center;
+    width: 100%;
+    border-radius: 5px;
+  }
+  .load_area .container_load .content_load .choosewhat p:hover {
+    filter: brightness(1.1);
+  }
+  .load_area .container_load .content_load .choosewhat p + p {
+    margin-left: 0px;
+    margin-top: 5px;
+    background-color: #3b5998;
+  }
+  .load_area .container_load .content_load .load_write {
+    background-color: #fff;
+    padding: 10px;
+  }
+  .load_area .container_load .content_load .load_write .write_group.other {
+    display: none;
+  }
+  .load_area .container_load .content_load .load_write .write_group .write_list {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+  }
+  .load_area .container_load .content_load .load_write .write_group .write_list input {
+    border: solid 1px #dcdcdc;
+    padding: 10px;
+  }
+  .load_area .container_load .content_load .load_write .write_group .write_list.fill input {
+    width: 100%;
+  }
+  .load_area .container_load .content_load .load_write .write_group .write_list:nth-child(6) {
+    margin-bottom: 0;
+    justify-content: flex-start;
+  }
+  .load_area .container_load .content_load .addbtn {
+    background-color: #fff;
+    text-decoration: none;
+    padding: 0px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .load_area .container_load .content_load .addbtn .letgo {
+    border: solid 1px;
+    background-color: #00A26A;
+    text-align: center;
+    border-radius: 5px;
+    padding: 15px 50px;
+    color: #f7f7f7;
+    font-weight: bold;
+  }
+  .load_area .container_load .content_load .addbtn .letgo:hover {
+    filter: brightness(1.1);
+  }
+  .load_area .container_load .content_load .addbtn .forget {
+    text-align: center;
+    color: rgba(51, 51, 51, 0.7);
+    font-weight: bold;
+    font-size: 14px;
+    padding: 20px 0px 0px;
+    display: none;
+  }
+}
