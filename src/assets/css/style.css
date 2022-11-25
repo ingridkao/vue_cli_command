@@ -306,6 +306,7 @@ text {
   position: relative;
   height: 430px;
   width: 3000px;
+  overflow-x: scroll;
 }
 .derivative_row .derivative_inner_box .derivative_container .derivative_group {
   cursor: pointer;
@@ -337,12 +338,6 @@ text {
 }
 .derivative_row .derivative_inner_box .derivative_container .derivative_group .derivative_list + .derivative_list {
   padding-left: 30px;
-}
-.derivative_row .derivative_inner_box .derivative_container .derivative_group .derivative_list {
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
 }
 .derivative_row .derivative_inner_box .derivative_container .derivative_group .derivative_list .derivative_list_card {
   position: relative;
@@ -1169,7 +1164,6 @@ text {
     transform: translateY(0);
     height: 400px;
     width: 3000px;
-    overflow-x: scroll;
   }
   .derivative_row .derivative_inner_box .derivative_container .derivative_group {
     padding-top: 40px;
@@ -1183,32 +1177,30 @@ text {
     justify-content: center;
     left: 40%;
   }
-  .derivative_row .derivative_inner_box .derivative_container .derivative_group #followbtn {
-    display: none;
-    -webkit-user-select: none;
+
+  .derivative_row .derivative_inner_box .derivative_container #followbtn {
+    /* -webkit-user-select: none;
        -moz-user-select: none;
         -ms-user-select: none;
-            user-select: none;
-    transform: translate(-50%, -50%);
+            user-select: none; */
+    /* pointer-events: none; */
     width: 90px;
     height: 90px;
     position: absolute;
     border-radius: 100%;
     transition: opacity 0.3s;
-    pointer-events: none;
     z-index: 1;
+    opacity: 0;
   }
-  .derivative_row .derivative_inner_box .derivative_container .derivative_group #followbtn img {
+  .derivative_row .derivative_inner_box .derivative_container #followbtn.active {
+    opacity: 1;
+  }
+
+  .derivative_row .derivative_inner_box .derivative_container  #followbtn img {
     width: 100%;
   }
   .derivative_row .derivative_inner_box .derivative_container .derivative_group .derivative_list + .derivative_list {
     padding-left: 30px;
-  }
-  .derivative_row .derivative_inner_box .derivative_container .derivative_group .derivative_list {
-    -webkit-user-select: none;
-       -moz-user-select: none;
-        -ms-user-select: none;
-            user-select: none;
   }
   .derivative_row .derivative_inner_box .derivative_container .derivative_group .derivative_list .derivative_list_card {
     position: relative;
@@ -2009,24 +2001,6 @@ text {
     display: flex;
     justify-content: center;
     left: 40%;
-  }
-  .derivative_row .derivative_inner_box .derivative_container .derivative_group #followbtn {
-    display: none;
-    -webkit-user-select: none;
-       -moz-user-select: none;
-        -ms-user-select: none;
-            user-select: none;
-    transform: translate(-50%, -50%);
-    width: 90px;
-    height: 90px;
-    position: absolute;
-    border-radius: 100%;
-    transition: opacity 0.3s;
-    pointer-events: none;
-    z-index: 1;
-  }
-  .derivative_row .derivative_inner_box .derivative_container .derivative_group #followbtn img {
-    width: 100%;
   }
   .derivative_row .derivative_inner_box .derivative_container .derivative_group .derivative_list + .derivative_list {
     padding-left: 30px;

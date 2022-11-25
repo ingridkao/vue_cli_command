@@ -1,10 +1,19 @@
 <template>
     <section class="banner_row"> 
         <div class="banner_go">
-            <Carousel v-model="value" loop autoplay>
-                <CarouselItem v-for="item in carouselArray" :key="item">
+            <Carousel v-model="value" loop autoplay :autoplay-speed="5000">
+                <CarouselItem v-for="(item, index) in carouselArray" :key="item">
                     <div class="demo-carousel">
-                        <img :alt="item.alt" :src="require(`@/assets/img/${item.img}`)">
+                        <div
+                            class="banner_images"
+                            :class="{
+                                active: value === index
+                            }"
+                            :style="{
+                                backgroundImage: 'url(' + require(`@/assets/img/${item.img}`) + ')' 
+                            }"
+                        >
+                        </div>
                         <div class="banner_inner">
                             <p class="main_new">最新產品</p>
                             <h2 class="main_pro">{{item.alt}}</h2>
@@ -41,8 +50,16 @@ export default {
 .demo-carousel{
     position: relative;
     height: 99vh;
-    img{
+    .banner_images{
+        width: 100%;
         height: 100%;
+        background-repeat: no-repeat;
+        background-size: cover;
+        transform: scale(1);
+        transition-duration: 5s;
+        &.active{
+            transform: scale(1.05);
+        }
     }
     .banner_inner{
         position: absolute;
@@ -99,7 +116,6 @@ export default {
                 right: 0;
                 transform: translateX(40px) translateY(-50%);
             }
-
         }
     }
 }

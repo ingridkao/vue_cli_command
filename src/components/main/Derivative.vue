@@ -9,23 +9,18 @@
             </div>
             <div class="derivative_number">
                 <div class="derivative_number_inner">
-                    <div class="derivative_number_var">01</div>
+                    <div class="derivative_number_var">0{{selected}}</div>
                     <div class="derivative_number_bar">/</div>
-                    <div class="derivative_number_total">08</div>
+                    <div class="derivative_number_total">{{derivativeArray.length}}</div>
                 </div>
             </div>
             <div class="derivative_container">
-                <ul class="derivative_group" id="special_group">
-                    <div id="followbtn">
-                        <img :src="require(`@/assets/img/lr.svg`)" alt="follow">
-                    </div>
-                    <li class="derivative_list" v-for="(item, index) in derivativeArray" :key="index"> 
+                <ul class="derivative_group slide_left" id="special_group">
+                    <li class="derivative_list" v-for="(item, index) in derivativeArray" :key="index" @mouseenter="selectShop(index)"> 
                         <div class="derivative_list_card">
-                            <!-- <a href="indexshopinner.html">  -->
-                                <figure class="product_else">
-                                    <img class="tea_img" :src="require(`@/assets/img/${item.img}`)" :alt="item.name">
-                                </figure>
-                            <!-- </a> -->
+                            <figure class="product_else" @click="linkShop(item)">
+                                <img class="tea_img" :src="require(`@/assets/img/${item.img}`)" :alt="item.name">
+                            </figure>
                             <div class="tea_img_name"> 
                                 <h3>{{item.name}}</h3>
                                 <button class="derivative_car">
@@ -59,21 +54,30 @@
 export default {
     data(){
         return {
+            selected: 1,
             derivativeArray: [
-                {img: '22.jpg', name:'玻璃禮品茶罐'},
-                {img: '6.jpg', name:'茶香吐司'},
-                {img: '10.jpg', name:'抹茶馬卡龍'},
-                {img: '68.png', name:'高山清白茶'},
-                {img: '38.jpg', name:'綜合茶皂組'},
-                {img: '26.jpg', name:'100%抹茶手工皂'},
-                {img: '14.jpg', name:'職人茶具組'}
+                {id: 1, img: '22.jpg', name:'玻璃禮品茶罐'},
+                {id: 2, img: '6.jpg', name:'茶香吐司'},
+                {id: 3, img: '10.jpg', name:'抹茶馬卡龍'},
+                {id: 4, img: '68.png', name:'高山清白茶'},
+                {id: 5, img: '38.jpg', name:'綜合茶皂組'},
+                {id: 6, img: '26.jpg', name:'100%抹茶手工皂'},
+                {id: 7, img: '14.jpg', name:'職人茶具組'}
             ]
+        }
+    },
+    methods: {
+        selectShop(index){
+            this.selected = index+1
+        },
+        linkShop(item){
+            console.log(item);
+            if(!item.id) return
+            this.$router.push(`/shop/${item.id}`)
         }
     }
 }
 </script>
 <style lang="scss" scoped>
-.derivative_group{
-    left: 10% !important;
-}
+
 </style>

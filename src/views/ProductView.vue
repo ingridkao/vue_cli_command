@@ -35,21 +35,19 @@
 
 <script>
 export default {
-
-
-      data(){
-          return {
-              load: false,
-    source: [],
-              sourceCount: 0,
-              order: [],
-              // product: [],
-              count: [],
-    search: '',
-    min: 0,
-    max: 0,
-          }
-      },
+    data(){
+        return {
+        load: false,
+        source: [],
+        sourceCount: 0,
+        order: [],
+        // product: [],
+        count: [],
+        search: '',
+        min: 0,
+        max: 0,
+        }
+    },
 			computed:{
 				product(){
 					let cache = this.source
