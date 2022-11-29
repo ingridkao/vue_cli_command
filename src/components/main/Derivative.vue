@@ -40,7 +40,7 @@
                         </div>
                         <div class="read_go">
                             <div class="circle">
-                                <i class="fa-solid fa-arrow-right"></i>
+                                <Icon type="md-arrow-dropright" />
                             </div>
                         </div>
                     </router-link>

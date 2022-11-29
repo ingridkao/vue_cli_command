@@ -1,0 +1,3 @@
+<template>
+    Oauth
+</template>

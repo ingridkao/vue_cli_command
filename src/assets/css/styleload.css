@@ -103,6 +103,7 @@
   padding: 15px 50px;
   color: #f7f7f7;
   font-weight: bold;
+  cursor: pointer;
 }
 .load_area .container_load .content_load .addbtn .letgo:hover {
   filter: brightness(1.1);
@@ -113,7 +114,7 @@
   font-weight: bold;
   font-size: 14px;
   padding: 20px 0px 0px;
-  display: none;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 768px) {
@@ -233,6 +234,5 @@
     font-weight: bold;
     font-size: 14px;
     padding: 20px 0px 0px;
-    display: none;
   }
 }

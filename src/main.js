@@ -4,13 +4,14 @@ import ViewUIPlus from 'view-ui-plus'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import firebase from './config/firebase'
 
 import 'view-ui-plus/dist/styles/viewuiplus.css'
 
-// createApp(App).use(store).use(router).mount('#app')
 
 const app = createApp(App)
-app.use(store)
+app.use(ViewUIPlus)
 .use(router)
-.use(ViewUIPlus)
+.use(store)
+.use(firebase)
 .mount('#app')
