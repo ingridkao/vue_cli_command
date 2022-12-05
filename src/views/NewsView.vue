@@ -1,54 +1,30 @@
 <template>
-	<div class="news"
-		:style="{
-			backgroundColor: activeColor
-		}"
-	>
+	<div class="news">
+		<!-- {{info}} -->
+		<div>
+			<input type="text" v-model.trim="title">
+			<input type="number" v-model.number="price">
+			<Button type="primary" size="small" style="margin-right: 5px" @click="createProduct">create</Button>
+		</div>
+
 		<Table border :columns="columns" :data="data">
 			<template #name="{ row }">
 				<strong>{{ row.name }}</strong>
 			</template>
 			<template #action="{ row, index }">
-				<Button type="primary" size="small" style="margin-right: 5px" @click="show(index)">View</Button>
+				<Button type="primary" size="small" @click="updateProduct(index, row)">修改</Button>
+				<Button type="error" size="small" @click="deleteProduct(index, row)">刪除</Button>
 			</template>
 		</Table>
-
-		<!-- <Tabs value="name1">
-			<TabPane label="标签一" name="name1">标签一的内容</TabPane>
-			<TabPane label="标签二" name="name2">
-				<div v-if="Object.keys(activeData).length === 0">
-					Table
-					<button @click="info">info</button>
-				</div>
-				<div v-else>
-					{{activeData}}
-					<button @click="activeData = {}">返回</button>
-				</div>
-			</TabPane>
-			<TabPane label="标签三" name="name3">标签三的内容</TabPane>
-		</Tabs> -->
-
-		<!-- <img alt="Vue logo" :src="require(`@/assets/logo.png`)">
-		<button 
-			v-for="i in colors" 
-			:key="i"
-			:style="{
-				backgroundColor: i
-			}"
-			:class="{active: activeColor === i}"
-			@click="changeColor(i)"
-		>{{i}}</button> -->
 	</div>
 </template>
 
 <script>
-import { Colors } from '@/assets/config/setting.js' 
 export default {
 	data(){
 		return {
-			colors: Colors,
-			activeColor: '',
-			activeData: {},
+			title: '',
+			price: '',
 			columns: [
 				{
 					title: '產品名稱',
@@ -65,16 +41,11 @@ export default {
 					align: 'center'
 				}
 			],
-			data: []
+			data: [],
+			info: {}
 		}
 	},
 	methods:{
-		changeColor(color){
-			this.activeColor = color
-		},
-		info(){
-			this.activeData = {id: 111}
-		},
 		getProduct(){
 			fetch('https://fakestoreapi.com/products')
             .then(res=>res.json())
@@ -82,14 +53,67 @@ export default {
 				this.data = json
 			})
 		},
-		show(index){
+		getTargetProduct(){
+			fetch(`https://fakestoreapi.com/products/${this.$route.params.id}`)
+            .then(res=>res.json())
+            .then(json=>{
+				// console.log(json)
+				this.info = json
+			})
+		},
+		createProduct(){
+			fetch('https://fakestoreapi.com/products',{
+				method:"POST",
+				body:JSON.stringify(
+					{
+						title: this.title,
+						price: this.price,
+						description: 'lorem ipsum set',
+						image: 'https://i.pravatar.cc',
+						category: 'electronic'
+					}
+				)
+			})
+			.then(res=>res.json())
+			.then(json=>{
+				this.$Notice.open({
+                    title: '新增成功',
+                    // desc: JSON.stringify(json)
+                    desc: json.id
+                });
+			})
+		},
+		updateProduct(index, row){
+			if(this.title === '') return
+			fetch(`https://fakestoreapi.com/products/${row.id}`,{
+				method:"PUT",
+				body:JSON.stringify(
+					{
+						title: this.title,
+						price: 13.5,
+						description: 'lorem ipsum set',
+						image: 'https://i.pravatar.cc',
+						category: 'electronic'
+					}
+				)
+			})
+            .then(res=>res.json())
+            .then(json=>console.log(json))
+		},
+		deleteProduct(index, row){
 			console.log(index);
+			console.log(row);
+			fetch(`https://fakestoreapi.com/products/${row.id}`,{
+				method:"DELETE"
+			})
+            .then(res=>res.json())
+            .then(json=>console.log(json))
 		}
 	},
 	created(){
 		this.getProduct()
-	},
-	mounted(){},
+		// this.getTargetProduct()
+	}
 }
 </script>
 
@@ -98,12 +122,5 @@ export default {
 	text-align: center;
 	padding: 4rem 0;
 	background: #ddd;
-}
-button{
-	color: #fff;
-	padding: 0.5rem 1rem;
-	&.active{
-		border: 3px solid yellow;
-	}
 }
 </style>

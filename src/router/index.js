@@ -19,9 +19,15 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
   },
   {
-    path: '/news',
+    path: '/news/:id',
     name: 'news',
-    component: () => import('../views/NewsView.vue')
+    component: () => import('@/views/NewsView.vue'),
+    // children: [
+    //   {
+    //     path: 'info',
+    //     component: () => import('@/views/NewsInfo.vue')
+    //   }
+    // ]
   },
   {
     path: '/product',
@@ -37,7 +43,6 @@ const routes = [
         meta: {
           color: '#fff'
         }
-      
       }
     ],
   },
