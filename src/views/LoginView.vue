@@ -28,13 +28,15 @@ export default {
         EmailSignOut,
         ForgetPassword
         // 無法用下列方式渲染
-        // EmailSignIn: () => import('@/components/login/EmailSignIn.vue'),
-        // EmailSignOut: () => import('@/components/login/EmailSignOut.vue')
+        // EmailSignIn: () => import('@/components/login/EmailSignIn.vue')
     },
     data(){
         return {
-            oauthMethods: 'EmailSignIn'
+            oauthMethods: ''
         }
+    },
+    created(){
+        this.updateMethod(this.$route.params.type)
     },
     methods:{
         updateMethod(method){

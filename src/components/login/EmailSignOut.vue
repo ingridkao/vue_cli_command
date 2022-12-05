@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { firebaseAuth }from "@/config/firebase.js"
+import { firebaseAuth }from "@/assets/config/firebase.js"
 import { createUserWithEmailAndPassword } from "firebase/auth"
 
 export default {
@@ -33,18 +33,34 @@ export default {
     },
     methods: {
         signOutUser(){
-            if(!this.policy || this.email === '' || this.password === '')return
+            if(this.email === '' || this.password === ''){
+                this.$Message.info('請輸入信箱或密碼');
+                return
+            }
+            if(!this.policy){
+                this.$Message.info('請勾選隱私政策');
+                return
+            }
             createUserWithEmailAndPassword(firebaseAuth, this.email, this.password)
             .then((userCredential) => {
-                const user = userCredential.user
-                console.log(userCredential)
-                // 登入後轉址到首頁或profile page
-                // 存到vuex
+                const userInfo = userCredential.user
+                this.$store.commit('setUsers', userInfo)
+                this.$router.push({ name: 'result', params: { 
+                    type: 'signoutSuccess'
+                } })
             })
             .catch((error) => {
                 const errorCode = error.code
-                const errorMessage = error.message
-                console.log(errorCode, errorMessage)
+                // const errorMessage = error.message
+                if( errorCode === 'auth/email-already-in-use'){
+                    this.$Message.warning('您的信箱可能已被註冊過了');
+                }else if(errorCode === 'auth/weak-password'){
+                    this.$Message.warning('此密碼強度太弱，至少包含六個字符');
+                }else if(errorCode === 'auth/invalid-email'){
+                    this.$Message.warning('信箱格式錯誤');
+                }else{
+                    this.$Message.warning(errorCode);
+                }
             })
         }
     }

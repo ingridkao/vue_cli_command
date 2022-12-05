@@ -28,7 +28,7 @@
             </ul>
             <ul class="icon_group">
                 <li class="icon_item">
-                    <router-link to="/login">
+                    <router-link :to="infoPath">
                         <Icon type="md-contact" />
                     </router-link>
                 </li> 
@@ -41,7 +41,8 @@
 export default {
     data(){
         return {
-            toggle: false
+            toggle: false,
+            userInfo: null
         }
     },
     computed: {
@@ -65,7 +66,18 @@ export default {
             }else{
                 return {animation: 'rotat23 0.6s both'}
             }
+        },
+        infoPath(){
+            if(this.$store.state.userInfo && this.$store.state.userInfo.uid){
+                return '/profile' 
+            }else{
+                return '/login' 
+            }
         }
+    },
+    created(){
+        // this.$store.dispatch('authAction').then(() => {
+        // })
     }
 }
 </script>

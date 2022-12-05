@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { firebaseAuth }from "@/config/firebase.js"
+import { firebaseAuth }from "@/assets/config/firebase.js"
 import { sendPasswordResetEmail } from "firebase/auth"
 
 export default {
@@ -33,8 +33,12 @@ export default {
             .catch((error) => {
                 const errorCode = error.code
                 const errorMessage = error.message
+                console.log(errorCode);
+                console.log(errorMessage);
                 // Todo: 做錯誤提示
-                console.log(errorCode, errorMessage)
+                // this.$router.push({ name: 'user', params: { 
+                //     type: 'error'
+                // } })
             })
         }
     }

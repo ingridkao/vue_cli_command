@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { firebaseAuth }from "@/config/firebase.js"
+import { firebaseAuth }from "@/assets/config/firebase.js"
 import { signInWithEmailAndPassword } from "firebase/auth"
 
 export default {
@@ -33,16 +33,22 @@ export default {
             signInWithEmailAndPassword(firebaseAuth, this.email, this.password)
             .then((userCredential) => {
                 const userInfo = userCredential.user
-                console.log(userInfo);
-                // Todo: 
-                // 登入後轉址到首頁或profile page
-                // 存到vuex
+                this.$store.commit('setUsers', userInfo)
+                this.$router.push({ name: 'result', params: { 
+                    type: 'loginSuccess'
+                }})
             })
             .catch((error) => {
                 const errorCode = error.code
-                const errorMessage = error.message
-                // Todo: 做錯誤提示
-                console.log(errorCode, errorMessage)
+                // const errorMessage = error.message
+                console.log(errorCode);
+                if( errorCode === 'auth/wrong-password'){
+                    this.$Message.warning('密碼錯誤');
+                }else if(errorCode === 'auth/user-not-found'){
+                    this.$Message.warning('請前往註冊');
+                }else{
+                    this.$Message.warning(errorCode);
+                }
             })
         }
     }
