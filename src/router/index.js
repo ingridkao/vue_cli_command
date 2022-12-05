@@ -5,6 +5,9 @@ const routes = [
   {
     path: '/',
     name: 'home',
+    meta: {
+      color: '#fff'
+    },
     component: HomeView
   },
   {
@@ -31,6 +34,10 @@ const routes = [
       {
         path: '',
         component: () => import('../views/ShopInfoView.vue'),
+        meta: {
+          color: '#fff'
+        }
+      
       }
     ],
   },

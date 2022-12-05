@@ -139,7 +139,10 @@ export default {
             ]
         }
     },
-    methods: {}
+    methods: {},
+    created(){
+        console.log(this.$route);
+    }
 }
 </script>
 
