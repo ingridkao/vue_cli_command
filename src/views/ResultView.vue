@@ -1,5 +1,5 @@
 <template>
-    <Layout class="padding-3">
+    <Layout class="padding-10">
         <Result 
             :type="type" 
             :title="title" 

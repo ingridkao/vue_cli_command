@@ -1,18 +1,20 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 
 const routes = [
   {
     path: '/',
     name: 'home',
     meta: {
-      color: '#fff'
+      title: '首頁'
     },
-    component: HomeView
+    component: () => import('@/views/HomeView.vue'),
   },
   {
     path: '/about',
     name: 'about',
+    meta: {
+      title: '關於茶苑'
+    },
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
@@ -52,8 +54,11 @@ const routes = [
     component: () => import('../views/LoginView.vue')
   },
   {
-    path: '/profile/:type',
+    path: '/profile',
     name: 'profile',
+    meta: {
+      title: '會員資料'
+    },
     component: () => import('../views/ProfileView.vue')
   },
   {
@@ -65,7 +70,11 @@ const routes = [
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
+  routes,
+  //切換分頁滾軸永遠在最上面
+  scrollBehavior (to, from, savedPosition) {
+    return { top: 0 }
+  }
 })
 
 export default router

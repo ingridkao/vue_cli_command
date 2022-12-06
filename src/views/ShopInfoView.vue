@@ -12,15 +12,6 @@
     <section class="shopinner">
         <div class="container_inner">
             <div class="content_inner">
-                <!-- <div class="main_img">
-                    <div class="bigpi">
-                        <ul class="bigpi_group">
-                            <li class="bigpi_list" v-for="item in info.image" :key="item.id">
-                                <img :src="require(`@/assets/img/${item.img}`)" :alt="item.name">
-                            </li>
-                        </ul>
-                    </div>
-                </div> -->
                 <Carousel v-model="carouselValue" loop :dots="'none'" class="main_img">
                     <CarouselItem v-for="item in info.image" :key="item.id">
                         <img :src="require(`@/assets/img/${item.img}`)" :alt="item.name">
@@ -146,8 +137,8 @@ export default {
 }
 </script>
 
-<style lang="scss">
-    @import "@/assets/css/navbarfoot.css";
+<style lang="scss" scoped>
+    @import "@/assets/scss/navbarfoot.scss";
     @import "@/assets/css/styleshopinner.css";
     .main_img{
         height: 28rem;

@@ -8,6 +8,10 @@ import firebase from './assets/config/firebase'
 
 import 'view-ui-plus/dist/styles/viewuiplus.css'
 
+//global style
+import "@/assets/css/reset.css"
+import "@/assets/css/style.css"
+import "@/assets/scss/style.scss"
 
 const app = createApp(App)
 app.use(ViewUIPlus)

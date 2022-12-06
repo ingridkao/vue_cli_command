@@ -1,12 +1,13 @@
 <template>
-	<div class="news">
-		<!-- {{info}} -->
+	<div class="news" :class="$store.state.name">
+		{{$store.state.name}}
 		<div>
 			<input type="text" v-model.trim="title">
 			<input type="number" v-model.number="price">
 			<Button type="primary" size="small" style="margin-right: 5px" @click="createProduct">create</Button>
+			<button @click="$store.commit('setName', title)">更改name</button>
 		</div>
-
+		
 		<Table border :columns="columns" :data="data">
 			<template #name="{ row }">
 				<strong>{{ row.name }}</strong>
@@ -20,6 +21,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
 	data(){
 		return {
@@ -42,16 +45,32 @@ export default {
 				}
 			],
 			data: [],
-			info: {}
+			info: {},
+			loading: false
 		}
 	},
 	methods:{
 		getProduct(){
-			fetch('https://fakestoreapi.com/products')
-            .then(res=>res.json())
-            .then(json=>{
-				this.data = json
+			this.loading = true
+			// fetch('https://fakestoreapi.com/products')
+            // .then(res=>res.json())
+            // .then(json=>{
+			// 	this.data = json
+			// })
+			// .catch( (error) => {})
+			axios.get('https://fakestoreapi.com/products123123')
+			.then( (response) => {
+				console.log(response);
+				// this.data = response.data
 			})
+			.catch( (error) => {
+				// handle error
+				console.log(error);
+			})
+			.finally( () => {
+				// always executed
+				this.loading = false
+			});
 		},
 		getTargetProduct(){
 			fetch(`https://fakestoreapi.com/products/${this.$route.params.id}`)
@@ -62,26 +81,40 @@ export default {
 			})
 		},
 		createProduct(){
-			fetch('https://fakestoreapi.com/products',{
-				method:"POST",
-				body:JSON.stringify(
-					{
-						title: this.title,
-						price: this.price,
-						description: 'lorem ipsum set',
-						image: 'https://i.pravatar.cc',
-						category: 'electronic'
-					}
-				)
+			// fetch('https://fakestoreapi.com/products',{
+			// 	method:"POST",
+			// 	body:JSON.stringify(
+			// 		{
+			// 			title: this.title,
+			// 			price: this.price,
+			// 			description: 'lorem ipsum set',
+			// 			image: 'https://i.pravatar.cc',
+			// 			category: 'electronic'
+			// 		}
+			// 	)
+			// })
+			// .then(res=>res.json())
+			// .then(json=>{
+			// 	this.$Notice.open({
+            //         title: '新增成功',
+            //         // desc: JSON.stringify(json)
+            //         desc: json.id
+            //     });
+			// })
+			axios.post('https://fakestoreapi.com/products', {			// 		{
+				title: this.title,
+				price: this.price,
+				description: 'lorem ipsum set',
+				image: 'https://i.pravatar.cc',
+				category: 'electronic'
 			})
-			.then(res=>res.json())
-			.then(json=>{
-				this.$Notice.open({
-                    title: '新增成功',
-                    // desc: JSON.stringify(json)
-                    desc: json.id
-                });
+			.then(function (response) {
+				console.log(response);
 			})
+			.catch(function (error) {
+				console.log(error);
+			});
+
 		},
 		updateProduct(index, row){
 			if(this.title === '') return
@@ -101,8 +134,6 @@ export default {
             .then(json=>console.log(json))
 		},
 		deleteProduct(index, row){
-			console.log(index);
-			console.log(row);
 			fetch(`https://fakestoreapi.com/products/${row.id}`,{
 				method:"DELETE"
 			})
@@ -115,6 +146,7 @@ export default {
 		// this.getTargetProduct()
 	}
 }
+
 </script>
 
 <style lang="scss">

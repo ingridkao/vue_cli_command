@@ -24,7 +24,7 @@
                             <div class="tea_img_name"> 
                                 <h3>{{item.name}}</h3>
                                 <button class="derivative_car">
-                                    <span class="material-symbols-outlined">shopping_cart </span>
+                                    <Icon type="md-cart" />
                                 </button>
                             </div>
                         </div>
@@ -78,6 +78,3 @@ export default {
     }
 }
 </script>
-<style lang="scss" scoped>
-
-</style>

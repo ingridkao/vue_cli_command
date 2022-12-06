@@ -7,7 +7,10 @@
                     <p @click="updateMethod('EmailSignIn')">會員登入</p>
                 </div>
                 <div class="choosewhat">
-                   <p>使用google註冊</p>
+                    <Button @click="signInGoogle" class="loginBtn">
+                        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="">
+                        使用google登入
+                    </Button>
                 </div>
                 <keep-alive>
                     <component :is="oauthMethods" @update="updateMethod"></component>
@@ -21,6 +24,9 @@
 import EmailSignIn from '@/components/login/EmailSignIn.vue'
 import EmailSignOut from '@/components/login/EmailSignOut.vue'
 import ForgetPassword from '@/components/login/ForgetPassword.vue'
+import { firebaseAuth }from "@/assets/config/firebase.js"
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth"
+const provider = new GoogleAuthProvider()
 
 export default {
     components: {
@@ -41,11 +47,34 @@ export default {
     methods:{
         updateMethod(method){
             this.oauthMethods = method? method: 'EmailSignIn'
+        },
+        signInGoogle(){
+            signInWithPopup(firebaseAuth, provider)
+            .then((result) => {
+                // const credential = GoogleAuthProvider.credentialFromResult(result);
+                // const token = credential.accessToken;
+                const userInfo = result.user
+                this.$store.commit('setUsers', userInfo)
+                this.$router.push({ name: 'result', params: { 
+                    type: 'loginSuccess'
+                }})
+            }).catch((error) => {
+                const errorCode = error.code
+                this.$Message.warning(errorCode);
+            });  
         }
     }
 }
 </script>
 <style lang="scss">
-    @import "@/assets/css/navbarfoot.css";
     @import "@/assets/css/styleload.css";
+    .loginBtn{
+        padding: .25rem 1rem;
+        display: flex;
+        align-items: center;
+        img{
+            height: 100%;
+            margin-right: .25rem;
+        }
+    }
 </style>

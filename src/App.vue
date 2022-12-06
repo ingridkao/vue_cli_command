@@ -1,4 +1,5 @@
 <template>
+	<!-- 將所有應用連結寫進header -->
 	<!-- 
 		<nav>
 		<router-link to="/">Home</router-link> |
@@ -20,9 +21,3 @@ export default {
 	}
 }
 </script>
-
-<style lang="scss">
-    @import "assets/css/reset.css";
-    @import "assets/css/style.css";
-    @import "assets/scss/style.scss";
-</style>

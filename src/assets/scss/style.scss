@@ -1,5 +1,11 @@
-@for $i from 1 through 3 {
-    .padding-#{$i} {
-      padding: ($i*2) * 1rem;
-    }
+@for $i from 1 through 10 {
+	.margin-#{$i} {
+		margin: ($i*2) * 0.25rem;
+	}
+	.margin-top-#{$i} {
+		margin-top: ($i*2) * 0.25rem;
+	}
+	.padding-#{$i} {
+		padding: ($i*2) * 0.25rem;
+	}
 }
