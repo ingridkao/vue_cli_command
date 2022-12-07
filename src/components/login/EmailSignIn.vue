@@ -33,7 +33,7 @@ export default {
             signInWithEmailAndPassword(firebaseAuth, this.email, this.password)
             .then((userCredential) => {
                 const userInfo = userCredential.user
-                this.$store.commit('setUsers', userInfo)
+                this.$store.dispatch('updateUser', userInfo)
                 this.$router.push({ name: 'result', params: { 
                     type: 'loginSuccess'
                 }})

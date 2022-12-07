@@ -7,7 +7,10 @@ const routes = [
     meta: {
       title: '首頁'
     },
-    component: () => import('@/views/HomeView.vue'),
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "home" */ '@/views/HomeView.vue')
   },
   {
     path: '/about',
@@ -15,38 +18,46 @@ const routes = [
     meta: {
       title: '關於茶苑'
     },
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+    component: () => import('@/views/AboutView.vue')
   },
   {
-    path: '/news/:id',
+    path: '/news',
     name: 'news',
-    component: () => import('@/views/NewsView.vue'),
-    // children: [
-    //   {
-    //     path: 'info',
-    //     component: () => import('@/views/NewsInfo.vue')
-    //   }
-    // ]
-  },
-  {
-    path: '/product',
-    name: 'product',
-    component: () => import('../views/ProductView.vue')
-  },
-  { 
-    path: '/shop/:id', 
+    meta: {
+      title: '最新消息'
+    },
+    component: () => import('@/views/news/Index.vue'),
     children: [
       {
         path: '',
-        component: () => import('../views/ShopInfoView.vue'),
-        meta: {
-          color: '#fff'
-        }
+        alias: ['list'],
+        component: () => import('@/views/news/List.vue'),
+      },
+      {
+        path: ':id(\\d+)',
+        component: () => import('@/views/news/Info.vue')
+      }
+    ]
+  },
+  { 
+    path: '/shop/:id', 
+    meta: {
+      title: '線上商城'
+    },
+    children: [
+      {
+        path: '',
+        component: () => import('../views/ShopInfoView.vue')
       }
     ],
+  },
+  {
+    path: '/carts',
+    name: 'carts',
+    meta: {
+      title: '購物車'
+    },
+    component: () => import('../views/CartsView.vue')
   },
   {
     path: '/login',
@@ -71,9 +82,9 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
-  //切換分頁滾軸永遠在最上面
+  //切換不同頁面，滾軸永遠在最上面
   scrollBehavior (to, from, savedPosition) {
-    return { top: 0 }
+    if(to.name !== from.name)return { top: 0, left: 0, behavior: 'smooth' }
   }
 })
 

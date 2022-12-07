@@ -3,7 +3,7 @@
         <div class="container_title_area"> 
             <ul class="bread_group">
                 <li class="bread_list"><router-link to="/">首頁</router-link><span>/</span></li>
-                <li class="bread_list"><router-link to="/product">線上商城</router-link><span>/</span></li>
+                <li class="bread_list"><router-link to="/shop">線上商城</router-link><span>/</span></li>
                 <li class="bread_list">{{info.subtitle}}</li>
             </ul>
         </div>

@@ -1,51 +1,27 @@
 <template>
-  <div class="wrapper">
-      <main>
-          <header>
-              search: <input type="text" v-model="search"><br>
-              $<input type="number" v-model="min">-<input type="number" v-model="max">
-          </header>
-          <template v-if="load">loading...</template>
-          <template v-else >
-              <div class="productContainer">
-                  <div v-for="(item, index) in product" :key="item.id">
-                      <p>{{item.title}}</p>
-                      {{parseRating(item.rating)}}
-                      <img :src="item.image" v-bind:alt="item.title">
-                      <p>{{parsePrice(item.price)}}元</p>
-                      <div>
-                          <button v-on:click="reduceCount(index, item)">-</button>
-                          <input type="number" min="0" v-model="count[index]">
-                          <button @click="addCount(index, item)">+</button>
-                      </div>
-                  </div>
-              </div>
-          </template>
-      </main>
-      <aside>
-          <ul>
-              <li v-for="(item, index) in order" :key="item.id">
-                  {{index}}-{{item.title}}: {{item.count}}
-              </li>
-          </ul>
-          <p>總價：{{total}}元</p> 
-      </aside>
-  </div>
+    <Layout class="padding-10">
+        <Breadcrumb class="margin-1">
+            <BreadcrumbItem to="/"><Icon type="md-home" /></BreadcrumbItem>
+            <BreadcrumbItem>{{$route.meta.title}}</BreadcrumbItem>
+        </Breadcrumb>
+	</Layout>
+    <!-- 因為有child router所以要放置router-view -->
+    <router-view/>
 </template>
 
 <script>
 export default {
     data(){
         return {
-        load: false,
-        source: [],
-        sourceCount: 0,
-        order: [],
-        // product: [],
-        count: [],
-        search: '',
-        min: 0,
-        max: 0,
+            load: false,
+            source: [],
+            sourceCount: 0,
+            order: [],
+            // product: [],
+            count: [],
+            search: '',
+            min: 0,
+            max: 0,
         }
     },
     computed:{
@@ -183,29 +159,7 @@ export default {
           // console.log('beforeUnmount');
       }
 }
-
-
-    </script>
+</script>
 
 <style lang="scss">
-    .wrapper{
-        width: 100%;
-        height: 80vh;
-    }
-    main{
-        display: inline-block;
-        width: calc(100vw - 21rem);
-        overflow: scroll;
-    }
-    aside{
-        display: inline-block;
-        width: 20rem;
-        vertical-align: top;
-    }
-    .productContainer{
-        display: inline-flex;
-    }
-    img{
-        height: 5rem;
-    }
 </style>

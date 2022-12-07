@@ -1,9 +1,5 @@
 $mainColor: #2A9D8F;
 $whiteColor: #f7f7f7;
-* {
-  	font-family: "Kanit", sans-serif, 微軟正黑體;
-}
-
 body::-webkit-scrollbar, html::-webkit-scrollbar {
 	width: 8px;
 	height: 100%;
@@ -123,6 +119,9 @@ body::-webkit-scrollbar-thumb, html::-webkit-scrollbar-thumb {
 		@media screen and (max-width:1024px){
 			max-width: initial;
 		}
+		h1 img{
+			height: 100%;
+		}
 		.hamber{
 			width: 20px;
 			height: 20px;
@@ -131,8 +130,7 @@ body::-webkit-scrollbar-thumb, html::-webkit-scrollbar-thumb {
 			justify-content: space-evenly;
 			align-items: center;
 			position: relative;
-			order: -1;
-			display: flex;
+
 			cursor: pointer;
 			.hambox{
 				position: absolute;
@@ -167,6 +165,10 @@ body::-webkit-scrollbar-thumb, html::-webkit-scrollbar-thumb {
 				&:nth-child(3){
 					animation: rotate2open 0.6s 0.4s both;
 				}
+			}
+			@media screen and (max-width:768px){
+				order: -1;
+				display: flex;
 			}
 		}
 		.header_logo img {

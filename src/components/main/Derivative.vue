@@ -33,7 +33,7 @@
             </div>
             <div class="read slideIn">
                 <div class="read_inner"> 
-                    <router-link class="read_more" to="/product">
+                    <router-link class="read_more" to="/shop">
                         <div class="read_more_text"> 
                             <p>View More</p>
                             <p>View More</p>

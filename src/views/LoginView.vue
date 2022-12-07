@@ -54,14 +54,14 @@ export default {
                 // const credential = GoogleAuthProvider.credentialFromResult(result);
                 // const token = credential.accessToken;
                 const userInfo = result.user
-                this.$store.commit('setUsers', userInfo)
+                this.$store.dispatch('updateUser', userInfo)
                 this.$router.push({ name: 'result', params: { 
                     type: 'loginSuccess'
                 }})
             }).catch((error) => {
                 const errorCode = error.code
                 this.$Message.warning(errorCode);
-            });  
+            })
         }
     }
 }

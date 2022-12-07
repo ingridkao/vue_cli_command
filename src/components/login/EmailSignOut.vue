@@ -28,7 +28,7 @@ export default {
         return {
             email: '',
             password: '',
-            policy: false
+            policy: false,
         }
     },
     methods: {
@@ -44,7 +44,7 @@ export default {
             createUserWithEmailAndPassword(firebaseAuth, this.email, this.password)
             .then((userCredential) => {
                 const userInfo = userCredential.user
-                this.$store.commit('setUsers', userInfo)
+                this.$store.dispatch('createUser', userInfo)
                 this.$router.push({ name: 'result', params: { 
                     type: 'signoutSuccess'
                 } })

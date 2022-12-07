@@ -48,6 +48,7 @@
                     this.$Message.warning('成功登出')
                     // 前往首頁
                     this.$store.commit('setUsers', null)
+                    this.$store.commit('setCarts', null)
                     this.$router.push('/')
                 })
                 .catch((error) => {

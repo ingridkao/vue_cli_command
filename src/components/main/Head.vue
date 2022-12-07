@@ -8,7 +8,7 @@
                 </router-link>
             </h1>
             <div 
-                @click="toggleMent" 
+                @click="toggleMenu" 
                 :class="['hamber', {toggle: toggle}]"
             >
                 <div class="hambox" :style="hambox1"/>
@@ -22,13 +22,13 @@
                 <!-- <li class="list_item"> <a href="indexshop.html">線上商城</a></li>
                 <li class="list_item"> <a href="indexnews.html">最新消息</a></li>
                 <li class="list_item"> <a href="indexabout.html">關於茶苑</a></li> -->
-                <li class="list_item"><router-link to="/product">線上商城</router-link></li>
+                <li class="list_item"><router-link to="/shop">線上商城</router-link></li>
                 <li class="list_item"><router-link to="/news">最新消息</router-link></li> 
                 <li class="list_item"><router-link to="/about">關於茶苑</router-link></li> 
             </ul>
             <ul class="icon_group">
-                <li class="icon_item"><router-link to="/cart">
-                     <Badge :count="3" type="info">
+                <li class="icon_item"><router-link to="/carts">
+                     <Badge :count="cartCount" type="info">
                         <Icon type="md-cart" />
                      </Badge>
                 </router-link></li> 
@@ -47,6 +47,14 @@ export default {
             toggle: false
         }
     },
+    watch: { 
+        // 轉換頁面馬上把toggle關起來
+        '$route.path': {
+            handler(path) {
+                this.toggle = false 
+            }
+        }
+    },
     computed: {
         infoPath(){
             if(this.$store.state.userInfo && this.$store.state.userInfo.uid){
@@ -54,10 +62,14 @@ export default {
             }else{
                 return '/login' 
             }
+        },
+        cartCount(){
+            // 取得購物車數量
+            return this.$store.state.cartList.length
         }
     },
     methods: {
-        toggleMent() {
+        toggleMenu() {
             this.toggle = !this.toggle
         }
     }

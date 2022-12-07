@@ -181,9 +181,6 @@ text {
   right: 0;
   transform: translateX(40px) translateY(-50%);
 }
-.banner_row .banner_go .box_group .banner_inner_box_group .read_more .read_go .key_item {
-  width: 75px;
-}
 .banner_row .banner_go .box_group .banner_inner_box_group .read_more::before {
   content: "";
   position: absolute;
@@ -1912,9 +1909,6 @@ text {
     top: 50%;
     right: 0;
     transform: translateX(40px) translateY(-50%);
-  }
-  .banner_row .banner_go .box_group .banner_inner_box_group .read_more .read_go .key_item {
-    width: 75px;
   }
   .banner_row .banner_go .box_group .banner_inner_box_group .read_more::before {
     content: "";

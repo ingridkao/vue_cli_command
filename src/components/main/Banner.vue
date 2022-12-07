@@ -17,11 +17,13 @@
                         <div class="banner_inner">
                             <p class="main_new">最新產品</p>
                             <h2 class="main_pro">{{item.alt}}</h2>
-                            <router-link class="read_more" to="/product">
+                            <router-link class="read_more" to="/news">
                                 <div class="read_more_text"> 
                                     <p>View More</p>
                                 </div>
-                                <span class="read_go"><img class="key_item" :src="require(`@/assets/img/scroll.svg`)" alt="viewmore"></span>
+                                <span class="read_go">
+                                    <img class="key_item" :src="require(`@/assets/img/scroll.svg`)" alt="viewmore">
+                                </span>
                             </router-link>
                         </div>
                     </div>
@@ -118,6 +120,9 @@ export default {
             }
         }
     }
+}
+.read_go .key_item {
+    width: 75px;
 }
 @keyframes movedown {
   0% {

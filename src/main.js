@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import ViewUIPlus from 'view-ui-plus'
+import axios from 'axios';
 
 import App from './App.vue'
 import router from './router'
@@ -14,6 +15,9 @@ import "@/assets/css/style.css"
 import "@/assets/scss/style.scss"
 
 const app = createApp(App)
+
+app.config.globalProperties.axios=axios
+
 app.use(ViewUIPlus)
 .use(router)
 .use(store)
