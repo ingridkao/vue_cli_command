@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunkvue_cli_command"]=self["webpackChunkvue_cli_command"]||[]).push([[984],{8984:function(n,u,e){e.r(u),e.d(u,{default:function(){return o}});var c=e(3396);function r(n,u){const e=(0,c.up)("router-view"),r=(0,c.up)("Layout");return(0,c.wg)(),(0,c.j4)(r,{class:"padding-10 news"},{default:(0,c.w5)((()=>[(0,c.Wm)(e)])),_:1})}var t=e(89);const a={},s=(0,t.Z)(a,[["render",r]]);var o=s}}]);
+//# sourceMappingURL=984.5034abd8.js.map
