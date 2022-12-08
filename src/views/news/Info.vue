@@ -44,6 +44,7 @@ export default {
 	},
 	computed:{
 		productID(){
+			//之後不會被改變此頁面的商品ID，所以用computed存取
 			return this.$route.params.id
 		}
 	},
@@ -59,6 +60,7 @@ export default {
 		},
 		getTargetCart(){
 			const exitCart = this.cartList.find(item => item && item.id == this.productID)
+			// 如果有存在於購物車中顯示該數量，如果沒有設定為０
 			this.count = exitCart? exitCart.count: 0
 		},
 		reduceCart(){
@@ -71,20 +73,26 @@ export default {
 			this.updateCart()
 		},
 		updateCart(){
+			// 確認購物車中有沒有存在
 			let exitIndex = this.cartList.findIndex(item => item && item.id == this.productID)
+			// 如果有存在於購物車中找出陣列中的index，如果沒有則新增陣列
 			exitIndex = (exitIndex >= 0)? exitIndex: this.cartList.length
 			if(this.count === 0){
+				// 如果數量為0，移除購物車項目
 				this.cartList = this.cartList.filter(item => item && item.id !==  this.productID)
 			}else{
+				// 如果數量>0，更改購物車項目的數量
 				this.cartList[exitIndex] = {
 					id: this.productID, 
 					count: this.count
 				}
 			}
+			//在變更到全域的購物車列表
 			this.$store.commit('setCarts', this.cartList)
 		}
 	},
 	created(){
+		// 之後要更新vuex裡面的購物車，所以不透過computed存取
 		this.cartList = this.$store.state.cartList
 		if(this.productID){
 			//有URL參數
