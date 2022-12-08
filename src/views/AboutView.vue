@@ -1,5 +1,5 @@
 <template>
-    <Layout class="padding-10">
+    <Layout class="padding-10 aboutContainer">
 		<Carousel v-model="value" loop>
 			<!-- <CarouselItem>
 			<div class="demo-carousel"><img alt="" :src="require(`@/assets/images/avatar/report_avatar_1.png`)"></div>

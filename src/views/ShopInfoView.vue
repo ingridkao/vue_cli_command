@@ -84,23 +84,17 @@ export default {
         return {
             carouselValue: 0,
             info: {
-                // "id": 7,
                 "title": "輕焙熟成烏龍 200g｜罐裝茶葉｜玻璃罐裝原始茶香",
                 "subtitle": "輕焙熟成烏龍 200g",
                 "price": 850,
                 "description": "川久保玲御用設計師 Filip Pagowski<br>用代表 CAFE!N 的驚嘆號圖樣做出多種變化，每個驚嘆號都像 CAFE!N 的飲料一樣讓人驚喜，簡單有趣的線條配上明亮色塊，創造年輕活潑的的印象。",
-                // "category": "men's clothing",
                 "image": [
                     {id: 1, img: '22.jpg', name:'玻璃禮品茶罐'},
                     {id: 2, img: '3.jpg', name:'茶香吐司'},
                     {id: 3, img: '113.jpg', name:'抹茶馬卡龍'},
                     {id: 4, img: '114.jpg', name:'抹茶馬卡龍'},
                     {id: 5, img: '87.jpg', name:'抹茶馬卡龍'}
-                ],
-                // "rating": {
-                //     "rate": 3.9,
-                //     "count": 120
-                // }
+                ]
             },
             other: [
                 {
@@ -129,10 +123,6 @@ export default {
                 }
             ]
         }
-    },
-    methods: {},
-    created(){
-        console.log(this.$route);
     }
 }
 </script>

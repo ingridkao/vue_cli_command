@@ -16,12 +16,12 @@
 	<div v-if="loading">
 		Loading...
 	</div>
-	<div v-else>
-		<Card style="width:320px" v-for="item in displayData" :key="item.id" >
-			<div style="text-align:center">
+	<Row v-else :gutter="4">
+		<Col :xs="12" :md="8" v-for="item in displayData" :key="item.id" >
+			<Card>
 				<Carousel v-model="item.carousel">
 					<CarouselItem v-for="imageitem in item.images" :key="imageitem">
-						<Image :src="imageitem" fit="fill" lazy width="200px" height="150px" >
+						<Image :src="imageitem" fit="cover" lazy width="100%" height="150px" >
 							<template #placeholder>
 								<Spin size="large" fix />
 							</template>
@@ -34,13 +34,14 @@
 				<h3>{{item.title}}</h3>
 				<div>
 					<h4>$ {{item.price}}</h4>
+					<!-- 這個組件沒辦法做數量更改event，可以news/Info寫法 -->
 					<InputNumber v-model="item.count" controls-outside size="small" min="0"/>
-					<Button type="primary" icon="md-cart" size="small" shape="circle" @click="addCart(item)"></Button>
+					<Button type="primary" icon="md-cart" size="small" shape="circle" @click="updateCart(item)"></Button>
 					<Button icon="md-return-right" size="small" shape="circle" @click="showProduct(item.id)"></Button>
 				</div>
-			</div>
-		</Card>
-	</div>
+			</Card>
+		</Col>
+	</Row>
 </template>
 
 <script>
@@ -58,50 +59,45 @@ export default {
 			},
 			loading: false,
 			sourceData: [],
-			displayData: [],
 			categoriesData: [],
 			activeCategories: [],
 			cartList: []
 		}
 	},
-    computed: {
+	computed: {
         cartArray(){
-            return this.$store.state.cartList || []
-        }
-    },
-	watch:{
-		activeCategories(){
-			if(this.activeCategories.length === 0){
-				this.displayData = this.sourceData
-			}else{
-				this.displayData = this.sourceData.filter((item, index)=>{
+            return this.$store.state.cartList
+        },
+		displayData(){
+			if(this.sourceData.length === 0)return
+
+			console.log('computed');
+			let newArray = this.sourceData
+			if(this.activeCategories.length > 0){
+				newArray = newArray.filter((item, index)=>{
 					if(!item.category) return
 					return this.activeCategories.includes(item.category.name)
 				})
 			}
-		},
-		min(){
-			//篩選最小價錢
-			this.displayData = this.sourceData.filter((item, index)=>{
+			//篩選最小價錢-
+			newArray = newArray.filter((item, index)=>{
 				return item.price > this.min
 			})
-		},
-		max(){
 			//篩選最大價錢
-			this.displayData = this.sourceData.filter(item=>{
+			newArray = newArray.filter(item=>{
 				return item.price < this.max
 			})
-		},
+			return newArray
+		}
 	},
 	methods:{
 		fetchCategories(){
-			return this.axios.get('https://api.escuelajs.co/api/v1/categories')
+			this.axios.get('https://api.escuelajs.co/api/v1/categories')
 			.then( (response) => {
-				if(Array.isArray(response.data)){
-					// this.categoriesData = response.data
-					// 因為第六個以外是別人測試的
-					this.categoriesData = response.data.splice(0,5)
-				}
+				if(!Array.isArray(response.data))return
+				// this.categoriesData = response.data
+				// 因為第六個以外是別人測試的
+				this.categoriesData = response.data.splice(0,5)
 			})
 			.catch( (error) => {
 				console.log(error);
@@ -109,19 +105,18 @@ export default {
 		},
 		fetchProduct(){
 			this.loading = true
-			return this.axios.get('https://api.escuelajs.co/api/v1/products', { 
+			this.axios.get('https://api.escuelajs.co/api/v1/products', { 
 				params: this.query
 			})
 			.then( (response) => {
-				// mapping購物車和產品清單
 				this.sourceData = response.data.map(item => {
-					const haveCart = this.cartArray.find(cart => cart.id === item.id)
+					// mapping購物車和產品清單：找出產品列表中已出現在購物車的項目數量
+					const haveCart = this.cartArray.find(cart => cart && cart.id === item.id)
 					return {
 						...item,
 						count: haveCart? haveCart.count: 0
 					}
 				})
-				this.displayData = this.sourceData
 			})
 			.catch( (error) => { // handle error
 				console.log(error);
@@ -131,21 +126,26 @@ export default {
 			});
 		},
 		showProduct(id){
-			this.$router.push({ path: `news/${id}`})
+			// https://router.vuejs.org/zh/guide/essentials/navigation.html#%E5%AF%BC%E8%88%AA%E5%88%B0%E4%B8%8D%E5%90%8C%E7%9A%84%E4%BD%8D%E7%BD%AE
+
+			// 寫法1-直接帶路徑
+			this.$router.push({ path: `/news/${id}`})
 		},
-		addCart(product){
-			if(product.count === 0) return
-			const exitIndex = this.cartList.findIndex(item => item.id == product.id)
-			if(exitIndex >= 0){
+		updateCart(product){
+			if(product.count === 0){
+				// 如果數量0表示要取消購物車裡的項目
+				// 篩選出非"此ID"的列表
+				this.cartList = this.cartList.filter(item => item.id != product.id)
+			}else{
+				// 找到此ID在列表中的陣列index
+				// 去改變此ID的數量
+				let exitIndex = this.cartList.findIndex(item => item.id == product.id)
+				//如果都找不到值會是-1
+				exitIndex = (exitIndex >= 0)? exitIndex: 0
 				this.cartList[exitIndex] = {
 					id: product.id, 
 					count: product.count
 				}
-			}else{
-				this.cartList.push({
-					id: product.id, 
-					count: product.count
-				})
 			}
 			this.$store.commit('setCarts', this.cartList)
 		}

@@ -1,5 +1,5 @@
 <template>
-    <Layout class="padding-10">
+    <Layout class="padding-10 cartContainer">
         <Breadcrumb class="margin-1">
             <BreadcrumbItem to="/"><Icon type="md-home" /></BreadcrumbItem>
             <BreadcrumbItem>{{$route.meta.title}}</BreadcrumbItem>
@@ -14,6 +14,7 @@
 							${{item.price}}
 						</li>
 						<li>
+							<!-- 這個組件沒辦法做數量更改event，可以參考之前cdn寫法 -->
 							<InputNumber v-model="item.count" controls-outside size="small" min="1"/>
 						</li>
 						<li>
@@ -34,6 +35,7 @@
 		</List>
 		<hr>
 		總計{{total}}
+		<button>結帳</button>
 	</Layout>
 </template>
 
@@ -63,6 +65,7 @@
 		},
 		methods:{
 			getTargetProduct(product){
+				if(!product) return
 				this.axios.get(`https://api.escuelajs.co/api/v1/products/${product.id}`)
 				.then( (response) => {
 					if(!response || !response.data)return
